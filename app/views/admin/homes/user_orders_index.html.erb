@@ -1,0 +1,35 @@
+<h1>admin/homes#<%= action_name %></h1>
+
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">XXXさんの注文履歴</span>
+</div>
+
+<div class="col">
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>購入日時</th>
+        <th>注文個数</th>
+        <th>注文ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% 20.times do %>
+        <%# レコードごとにリンクを付ける場合はJSを使う %>
+        <tr>
+          <td>date</td>
+          <td>number</td>
+          <td>status</td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<%
+=begin %>
+  <%# kaminariを用いてページャを実装する %>
+  <div class="mt-5 d-flex justify-content-center"><%= paginate post_images, theme: 'bootstrap-5' %></div>
+<%
+=end %>
+
+<p>Find me in app/views/admin/homes/<%= action_name %>.html.erb</p>

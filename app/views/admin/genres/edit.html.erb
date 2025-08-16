@@ -1,0 +1,15 @@
+<h1>admin/homes#<%= action_name %></h1>
+
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">ジャンル編集</span>
+</div>
+
+<div class="col mt-4">
+  <%= form_with class: "mt-2 d-flex align-items-center" do |f| %>
+    <%= f.label :name, "ジャンル名", class: "col-3 p-0" %>
+    <%= f.text_field :name, placeholder: "ジャンル名", autocomplete: true, class: "col-6 p-0" %>
+    <%= f.submit "変更を保存", class: "ml-2 btn btn-sm btn-success" %>
+  <% end %>
+</div>
+
+<p>Find me in app/views/admin/homes/<%= action_name %>.html.erb</p>

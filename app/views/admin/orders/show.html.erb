@@ -1,0 +1,97 @@
+<h1>admin/homes#<%= action_name %></h1>
+
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">注文履歴詳細</span>
+</div>
+
+<div class="col row mx-0">
+  <div class="col-7 p-0">
+    <table class='table'>
+      <tbody>
+        <tr>
+          <td class="col-4">購入者</td>
+          <td class="col-8">
+            <%= link_to root_path do %>
+              山田 花子
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>注文日</td>
+          <td>Date</td>
+        </tr>
+        <tr>
+          <td>配送先</td>
+          <td>
+            〒150-0041<br>
+            東京都渋谷区神南1丁目19-11 パークスクウェア24階<br>
+            山田 花子
+          </td>
+        </tr>
+        <tr>
+          <td>支払方法</td>
+          <td>Payment_method</td>
+        </tr>
+        <tr>
+          <td>注文ステータス</td>
+          <td>
+          <%= form_with class: "d-flex" do |f| %>
+            <%= f.select :status, options_for_select([["入金待ち","status"],["test","test"]]) %>
+            <%= f.submit "変更", class: "btn btn-sm btn-success ml-2" %>
+          <% end %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-4 ml-auto mt-auto mb-3 py-3 bg-white">
+    <div class="row">
+      <div class="col"><strong>商品合計</strong></div>
+      <div class="col text-right">6,490円</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col"><strong>送料</strong></div>
+      <div class="col text-right">800円</div>
+    </div>
+    <div class="row mt-2 border border-top border-secondary">
+    </div>
+    <div class="row mt-2">
+      <div class="col"><strong class="text-danger">請求金額合計</strong></div>
+      <div class="col text-right"><strong>7,290円</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="col">
+  <table class='table'>
+    <thead>
+      <tr>
+        <th class="col-4">商品名</th>
+        <th class="col-2">単価（税込）</th>
+        <th class="col-1">数量</th>
+        <th class="col-2">小計</th>
+        <th class="col-3">制作ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% 5.times do %>
+        <%# レコードごとにリンクを付ける場合はJSを使う %>
+        <tr>
+          <td>item_name</td>
+          <td class="m-auto">price</td>
+          <td>number</td>
+          <td>subtotal</td>
+          <td>
+            <%= form_with class: "d-flex" do |f| %>
+              <%= f.select :status, options_for_select([["--ステータス--","status"],["test","test"]]) %>
+              <%= f.submit "変更", class: "btn btn-sm btn-success ml-1" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<p>Find me in app/views/admin/homes/<%= action_name %>.html.erb</p>

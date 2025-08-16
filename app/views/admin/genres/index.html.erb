@@ -1,0 +1,36 @@
+<h1>admin/homes#<%= action_name %></h1>
+
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">ジャンル一覧・追加</span>
+</div>
+
+<div class="col">
+  <div class="mt-4 mx-auto">
+    <%= form_with class: "mt-2 d-flex align-items-center" do |f| %>
+      <%= f.label :name, "ジャンル名", class: "col-3 p-0" %>
+      <%= f.text_field :name, placeholder: "ジャンル名", autocomplete: true, class: "col-6 p-0" %>
+      <%= f.submit "新規登録", class: "ml-2 btn btn-sm btn-success" %>
+    <% end %>
+  </div>
+
+  <div class="mt-4">
+    <table class='table'>
+      <thead>
+        <tr>
+          <th class="col-10">ジャンル</th>
+          <th class="col-2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% 5.times do %>
+          <tr>
+            <td>genre</td>
+            <td><%= link_to "編集する", root_path, class: "btn btn-sm btn-success" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<p>Find me in app/views/admin/homes/<%= action_name %>.html.erb</p>
