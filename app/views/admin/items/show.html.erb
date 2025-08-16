@@ -1,0 +1,47 @@
+<h1>admin/homes#<%= action_name %></h1>
+
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">商品詳細</span>
+</div>
+
+<div class="col-md-12 mx-auto">
+  <div class="row mx-0">
+
+    <div class="col-4 bg-primary">
+      <%# 画像用のスペース %>
+    </div>
+
+    <div class="col-8 p-0">
+      <table class='table mb-0'>
+        <tbody>
+          <tr>
+            <td class="col-5">商品名</td>
+            <td class="col-7">いちごのショートケーキ（ホール）</td>
+          </tr>
+          <tr>
+            <td>商品説明</td>
+            <td>栃木県産のとちおとめを贅沢に使用しています。あまあああああああああああああああああああああああああああああああああああああい！</td>
+          </tr>
+          <tr>
+            <td>ジャンル</td>
+            <td>ケーキ</td>
+          </tr>
+          <tr>
+            <td>税込価格<br>(税抜価格)</td>
+            <td>2,750円（2,500円）</td>
+          </tr>
+          <tr>
+            <td>販売ステータス</td>
+            <td>販売中</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="actions mt-4">
+  <%= link_to "編集する", root_path, class: 'btn btn-sm btn-success' %>
+</div>
+
+<p>Find me in app/views/admin/homes/<%= action_name %>.html.erb</p>

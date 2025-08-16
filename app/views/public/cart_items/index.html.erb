@@ -1,0 +1,66 @@
+<h1>public/homes#<%= action_name %></h1>
+
+<div class="row mx-0 d-flex align-items-center" %>
+  <div class="d-flex align-items-center p-3">
+    <span class="page-title">ショッピングカート</span>
+  </div>
+
+  <div class="ml-auto mr-3">
+    <%= link_to "カートを空にする", root_path, class: "btn btn-sm btn-danger" %>
+  </div>
+</div>
+
+<div class="col mx-auto">
+  <table class="table">
+    <thed>
+      <tr>
+        <th>商品名</th>
+        <th>単価</th>
+        <th>数量</th>
+        <th>小計</th>
+        <th></th>
+      </tr>
+    </thed>
+    <tbody>
+      <% 3.times do %>
+        <tr>
+          <td class="d-flex align-items-center">
+            <div class="bg-success" style="height:60px; width:80px"></div>
+            <span class="ml-2">チョコバナナミルフィーユ</span>
+          </td>
+          <td>1,100円</td>
+          <td>
+            <%= form_with do |f| %>
+              <div class="d-flex justify-content-center align-items-center" >
+                <%= f.select :number, options_for_select([["3","number"],["10","test"]]) %>
+                <%= link_to "変更", root_path, class: "btn btn-sm btn-success ml-2" %>
+              </div>
+            <% end %>
+          </td>
+          <td>3,300</td>
+          <td><%= link_to "削除する", root_path, class: "btn btn-sm btn-danger" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="col d-flex align-items-center">
+  <div class="ml-3">
+    <%= link_to "買い物を続ける", root_path, class: "btn btn-sm btn-primary" %>
+  </div>
+  <div class="ml-auto">
+    <table class="table mb-0">
+      <tbody>
+        <td class="border border-dark bg-light">合計金額</td>
+        <td class="border border-dark"><strong>9,900円</strong></td>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mt-5 d-flex justify-content-center">
+  <%= link_to "情報入力にすすむ", root_path, class: "btn btn-sm btn-success" %>
+</div>
+
+<p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>

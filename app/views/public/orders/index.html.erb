@@ -1,0 +1,41 @@
+<h1>public/homes#<%= action_name %></h1>
+
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">注文履歴一覧</span>
+</div>
+
+<div class="col mt-3">
+  <table class="table">
+    <thed>
+      <tr>
+        <th class="col-1">注文日</th>
+        <th class="col-2">配送先</th>
+        <th class="col-2">注文商品</th>
+        <th class="col-1">支払い金額</th>
+        <th class="col-1">ステータス</th>
+        <th class="col-1">注文詳細</th>
+      </tr>
+    </thed>
+    <tbody>
+      <% 3.times do %>
+        <tr>
+          <td>2025/06/01</td>
+          <td>
+            <div>〒150-0041</div>
+            <div>東京都渋谷区神南1丁目19 パークウェースクエア24階</div>
+            <div>山田 花子</div>
+          </td>
+          <td>
+            <p>ショートケーキ</p>
+            <p>チーズケーキ</p>
+          </td>
+          <td>4,500円</td>
+          <td>発送済み</td>
+          <td><%= link_to "表示する", root_path, class: "btn btn-sm btn-primary" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>

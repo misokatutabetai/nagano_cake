@@ -1,0 +1,65 @@
+<h1>public/homes#<%= action_name %></h1>
+
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">注文情報入力</span>
+</div>
+
+<div class="col-8 mx-auto">
+  <%= form_with do |f| %>
+    <div class="mt-4">
+      <div><strong>支払い方法</strong></div>
+      <div class="col mt-2">
+        <%= f.radio_button :payment_method, :credit %>
+        <%= f.label :payment_method, "クレジットカード", value: :credit %>
+        <br>
+        <%= f.radio_button :payment_method, :bank_transfer %>
+        <%= f.label :payment_method, "銀行振込", value: :bank_transfer, class: "mt-3" %>
+      </div>
+    </div>
+    <div class="mt-4">
+      <div><strong>お届け先</strong></div>
+      <div class="col mt-2">
+        <%= f.radio_button :shipping_address, :my_address %>
+        <%= f.label :shipping_address, "ご自身の住所", value: :my_address %>
+        <div class="col mt-1">
+          <div>〒150-0041 東京都渋谷区神南1丁目19-11 パークウェースクエア24階</div>
+          <div>山田 花子</div>
+        </div>
+        <%= f.radio_button :shipping_address, :registered_address %>
+        <%= f.label :shipping_address, "登録住所先から選択", value: :registered_address, class: "mt-3" %> 
+        <div class="col">
+          <%# ラジオボタンと連動させるならJSを使用 %>
+          <%= f.select :address_list, options_for_select([["---住所を選択---","number"],["Address02","test"]]), {}, class: "mt-1 w-100" %>
+        </div>
+        <%= f.radio_button :shipping_address, :new_address %>
+        <%= f.label :shipping_address, "新しいお届け先", value: :new_address, class: "mt-3" %> 
+        <div class="col">
+          <div class="field mt-1">
+            <%= f.label :postal_code, "郵便番号（ハイフンなし）" %>
+            <div class="col-7 px-0">
+              <%= f.text_field :postal_code, autocomplete: true, class: "col-5" %>
+            </div>
+          </div>
+          <div class="field mt-2">
+            <%= f.label :address, "住所" %>
+            <div class="col-7 px-0">
+              <%= f.text_field :address, autocomplete: true, class: "col w-100" %>
+            </div>
+          </div>
+          <div class="field mt-2">
+            <%= f.label :name, "宛名" %>
+            <div class="col-7 px-0">
+              <%= f.text_field :name, autocomplete: true, class: "col-5" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 d-flex justify-content-center">
+      <%= f.submit "確認画面へすすむ", class: "btn btn-sm btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+<p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>

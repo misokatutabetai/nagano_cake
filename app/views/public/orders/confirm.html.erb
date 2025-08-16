@@ -1,0 +1,68 @@
+<h1>public/homes#<%= action_name %></h1>
+
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">注文情報確認</span>
+</div>
+
+<div class="col row mx-0">
+  <div class="col-7 p-0">
+    <table class="table">
+      <thed>
+        <tr>
+          <th>商品名</th>
+          <th>単価</th>
+          <th>数量</th>
+          <th>小計</th>
+        </tr>
+      </thed>
+      <tbody>
+        <% 3.times do %>
+          <tr>
+            <td class="d-flex align-items-center">
+              <div class="bg-success" style="height:60px; width:80px"></div>
+              <span class="ml-2">チョコバナナミルフィーユ</span>
+            </td>
+            <td>1,100円</td>
+            <td>3</td>
+            <td>3,300</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="col-4 ml-auto mt-auto mb-3 py-3 bg-white">
+    <div class="row">
+      <div class="col"><strong>商品合計</strong></div>
+      <div class="col text-right">6,490円</div>
+    </div>
+    <div class="row mt-2">
+      <div class="col"><strong>送料</strong></div>
+      <div class="col text-right">800円</div>
+    </div>
+    <div class="row mt-2 border border-top border-secondary">
+    </div>
+    <div class="row mt-2">
+      <div class="col"><strong class="text-danger">請求金額合計</strong></div>
+      <div class="col text-right"><strong>7,290円</strong></div>
+    </div>
+  </div>
+</div>
+
+<div class="d-flex align-items-center mt-3">
+  <div class="col-2"><strong>支払い方法</strong></div>
+  <div>クレジットカード</div>
+</div>
+<div class="d-flex align-items-center mt-2">
+  <div class="col-2"><strong>お届け先</strong></div>
+  <div>
+    <div>〒150-0041 東京都渋谷区神南1丁目19-11 パークウェースクエア24階</div>
+    <div>山田 花子</div>
+  </div>
+</div>
+
+<div class="mt-5 d-flex justify-content-center">
+  <%= link_to "注文を確定する", root_path, class: "btn btn-sm btn-success" %>
+</div>
+
+<p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>

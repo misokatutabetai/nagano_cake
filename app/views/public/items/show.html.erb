@@ -1,0 +1,33 @@
+<h1>public/homes#<%= action_name %></h1>
+
+<div class="row mx-0">
+  <div class="col-2 px-0">
+    <%= render "public/homes/genre_list" %>
+  </div>
+
+  <div class="col-10 pl-4 pr-0">
+
+    <div class="row mx-0">
+      <div class="col-5 bg-success" style="height:200px">
+        <%# 画像挿入用 %>
+      </div>
+
+      <div class="col-7 pl-4">
+        <div class="my-2">苺のショートケーキ（ホール）</div>
+        <div class="my-2">栃木県産のとちおとめを贅沢に使用しています。あまああああああいよ</div>
+        <div class="my-4">￥ 2,750（税込み）</div>
+        <div>
+          <%= form_with do |f| %>
+            <div class="d-flex justify-content-center align-items-center" >
+              <%= f.select :number, options_for_select([["-個数-","number"],["test","test"]]) %>
+              <%= f.submit "カートに入れる", class: "btn btn-sm btn-success ml-2" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>
