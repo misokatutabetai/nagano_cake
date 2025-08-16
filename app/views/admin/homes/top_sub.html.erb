@@ -1,0 +1,23 @@
+<h1>admin/homes#<%= action_name %></h1>
+
+<div class="d-flex align-items-center p-3">
+  <span class='bg-light px-5 h3'>LINK</span>
+</div>
+
+<ul>
+  <li><%= link_to "admin/login_page", new_admin_session_path %></li>
+  <li><%= link_to "admin/items_index", admin_items_index_path %></li>
+  <li><%= link_to "admin/item_new", admin_item_new_path %></li>
+  <li><%= link_to "admin/item_show", admin_item_show_path %></li>
+  <li><%= link_to "admin/item_edit", admin_item_edit_path %></li>
+  <li><%= link_to "admin/genres_index", admin_genres_index_path %></li>
+  <li><%= link_to "admin/genre_edit", admin_genre_edit_path %></li>
+  <li><%= link_to "admin/users_index", admin_users_index_path %></li>
+  <li><%= link_to "admin/user_show", admin_user_show_path %></li>
+  <li><%= link_to "admin/user_edit", admin_user_edit_path %></li>
+  <li><%= link_to "admin/orders_index", admin_orders_index_path %></li>
+  <li><%= link_to "admin/user_orders_index", admin_user_orders_index_path %></li>
+  <li><%= link_to "admin/order_show", admin_order_show_path %></li>
+</ul>
+
+<p>Find me in app/views/admin/homes/<%= action_name %>.html.erb</p>
