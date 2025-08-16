@@ -12,26 +12,13 @@
         <div class="row">
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ml-auto">
-              <li class="mx-2">
-                <%= link_to root_path,class: 'nav-link btn btn-sm' do %>
-                  <span>About</span>
-                <% end %>
-              </li>
-              <li class="mx-2">
-                <%= link_to root_path, class: 'nav-link btn btn-sm' do %>
-                  <span>商品一覧</span>
-                <% end %>
-              </li>
-              <li class="mx-2">
-                <%= link_to root_path, class: 'nav-link btn btn-sm' do %>
-                  <span>新規登録</span>
-                <% end %>
-              </li>
-              <li class="mx-2">
-                <%= link_to root_path, class: 'nav-link btn btn-sm' do %>
-                  <span>ログイン</span>
-                <% end %>
-              </li>
+              <% if admin_signed_in? %>
+                <%= render 'layouts/admin_menu' %>
+              <% elsif customer_signed_in? %>
+                <%= render 'layouts/customer_menu' %>
+              <% else %>
+                <%= render 'layouts/default_menu' %>
+              <% end %>
             </ul>
           </div>
         </div>
