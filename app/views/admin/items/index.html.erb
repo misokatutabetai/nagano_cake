@@ -3,7 +3,7 @@
 <div class="d-flex align-items-center p-3">
   <span class="page-title">商品名一覧</span>
   <span class="ml-auto">
-    <%= link_to "商品の追加", root_path, class: "btn btn-sm btn-success" %>
+    <%= link_to "商品の追加", new_admin_item_path, class: "btn btn-sm btn-success" %>
   </span>
 </div>
 
@@ -19,14 +19,21 @@
       </tr>
     </thead>
     <tbody>
-      <% 20.times do %>
-        <%# レコードごとにリンクを付ける場合はJSを使う %>
+      <% @items.each do |item| %>
         <tr>
-          <td>id</td>
-          <td>name</td>
-          <td>price</td>
-          <td>genre</td>
-          <td>status</td>
+          <td><%= item.id %></td>
+          <td>
+            <%= link_to item.name, admin_item_path(item.id) %>
+          </td>
+          <td><%= item.price %></td>
+          <td><%= item.genre.name %></td>
+          <td>
+            <% if item.is_active %>
+              販売中
+            <% else %>
+              販売停止中
+            <% end %>
+          </td>
         </tr>
       <% end %>
     </tbody>

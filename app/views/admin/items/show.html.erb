@@ -7,8 +7,13 @@
 <div class="col-md-12 mx-auto">
   <div class="row mx-0">
 
-    <div class="col-4 bg-primary">
+    <div class="col-4 bg-light">
       <%# 画像用のスペース %>
+      <% if @item.image.attached? %>
+        <%= image_tag @item.image, width: "100%" %>
+      <% else %>
+        <%= image_tag 'no_image', width: "100%" %>
+      <% end %>
     </div>
 
     <div class="col-8 p-0">
@@ -16,23 +21,29 @@
         <tbody>
           <tr>
             <td class="col-5">商品名</td>
-            <td class="col-7">いちごのショートケーキ（ホール）</td>
+            <td class="col-7"><%= @item.name %></td>
           </tr>
           <tr>
             <td>商品説明</td>
-            <td>栃木県産のとちおとめを贅沢に使用しています。あまあああああああああああああああああああああああああああああああああああああい！</td>
+            <td><%= @item.introduction %></td>
           </tr>
           <tr>
             <td>ジャンル</td>
-            <td>ケーキ</td>
+            <td><%= @item.genre.name %></td>
           </tr>
           <tr>
             <td>税込価格<br>(税抜価格)</td>
-            <td>2,750円（2,500円）</td>
+            <td><%= (@item.price * @tax).round %>円（<%= @item.price %>円）</td>
           </tr>
           <tr>
             <td>販売ステータス</td>
-            <td>販売中</td>
+            <td>
+              <% if @item.is_active %>
+                販売中
+              <% else %>
+                販売停止中
+              <% end %>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -40,8 +51,9 @@
   </div>
 </div>
 
-<div class="actions mt-4">
-  <%= link_to "編集する", root_path, class: 'btn btn-sm btn-success' %>
+<div class="actions mt-4 d-flex justify-content-around">
+  <%= link_to "編集する", edit_admin_item_path(@item.id), class: 'btn btn-sm btn-success' %>
+  <%= link_to "削除する", admin_item_path(@item.id), method: :delete,data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
 </div>
 
 <p>Find me in app/views/admin/homes/<%= action_name %>.html.erb</p>
