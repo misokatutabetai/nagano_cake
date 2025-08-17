@@ -10,8 +10,14 @@ class Admin::ItemsController < ApplicationController
   end
 
   def create
-    item = Item.create(item_params)
-    redirect_to admin_item_path(item.id)
+    @item = Item.new(item_params)
+    if @item.save
+      @item = Item.order(updated_at: :desc).limit(1)
+      redirect_to admin_item_path(item.id)
+    else
+      @genres = Genre.all
+      render action: :new
+    end
   end
 
   def show
@@ -29,6 +35,7 @@ class Admin::ItemsController < ApplicationController
     if @item.update(item_params)
       redirect_to admin_item_path(params[:id])
     else
+      @genres = Genre.all
       render action: :edit
     end
   end

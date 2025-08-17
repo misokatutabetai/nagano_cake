@@ -10,7 +10,9 @@
     <div class="col-4 bg-light">
       <%# 画像用のスペース %>
       <% if @item.image.attached? %>
-        <%= image_tag @item.image, :width => "100%" %>
+        <%= image_tag @item.image, width: "100%" %>
+      <% else %>
+        <%= image_tag 'no_image', width: "100%" %>
       <% end %>
     </div>
 
