@@ -1,0 +1,5 @@
+<%= form_with model: [:admin, genre], local: true, class: "mt-2 d-flex align-items-center" do |f| %>
+  <%= f.label :name, "ジャンル名", class: "col-3 p-0" %>
+  <%= f.text_field :name, autocomplete: true, class: "col-6 p-0" %>
+  <%= f.submit class: "ml-2 btn btn-sm btn-success" %>
+<% end %>

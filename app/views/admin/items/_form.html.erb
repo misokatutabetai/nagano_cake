@@ -1,7 +1,7 @@
-<%= form_with do |f| %>
+<%= form_with model: [:admin, item], local: true do |f| %>
   <div class="field mt-5">
-    <%= f.label :item_image, "商品画像" %>
-    <%= f.file_field :item_image, class: "col-8 p-0 form-control-file item_image", accept: 'image/*' %>
+    <%= f.label :image, "商品画像" %>
+    <%= f.file_field :image, class: "col-8 p-0 form-control-file item_image", accept: 'image/*' %>
   </div>
   <div class="field mt-2">
     <%= f.label :name, "商品名" %>
@@ -12,10 +12,9 @@
     <%= f.text_area :introduction, autofocus: true, class: "col-8 px-1" %>
   </div>
   <div class="field mt-2">
-    <%= f.label :genre, "ジャンル" %>
+    <%= f.label :genre_id, "ジャンル" %>
     <div class="col-8 px-0">
-      <%# ジャンルからリストを取得しセレクトボックスの実装 %>
-      <%= f.select :genre, options_for_select([["---ジャンルを選択---","genre"],["test","test"]]), {}, class: "w-100" %>
+      <%= f.collection_select :genre_id, genres.all, :id, :name, include_blank: '--ジャンルの選択--', class: "w-100" %>
     </div>
   </div>
   <div class="field mt-2">
@@ -30,16 +29,16 @@
 
     <div class="row col-8 p-0">
       <div class="col p-0">
-        <%= f.radio_button :status, :run, checked: true %>
-        <%= f.label :status, "販売中", value: :run, class: "mr-3" %>
-        <%= f.radio_button :status, :stop %>
-        <%= f.label :status, "販売停止中", value: :stop %>
+        <%= f.radio_button :is_active, :true, checked: true %>
+        <%= f.label :status, "販売中", value: :true, class: "mr-3" %>
+        <%= f.radio_button :is_active, :false %>
+        <%= f.label :status, "販売停止中", value: :false %>
       </div>
     </div>
   </div>
 
   <%# ja.ymlを利用してボタンの表示を分岐させる %>
   <div class="actions mt-5">
-    <%= f.submit "Buttom", class: 'btn btn-sm btn-success' %>
+    <%= f.submit class: 'btn btn-sm btn-success' %>
   </div>
 <% end %>
