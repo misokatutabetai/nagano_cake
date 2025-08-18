@@ -12,16 +12,18 @@
         <th>購入者</th>
         <th>注文個数</th>
         <th>ステータス</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
-      <% 20.times do %>
+      <% @orders.each do |order| %>
         <%# レコードごとにリンクを付ける場合はJSを使う %>
         <tr>
-          <td>date</td>
-          <td>name</td>
+          <td><%= order.created_at.to_date %></td>
+          <td><%= order.customer.last_name %> <%= order.customer.first_name %></td>
           <td>number</td>
-          <td>status</td>
+          <td><%= order.status_i18n %></td>
+          <td><%= link_to "詳細", admin_order_path(order.id), class: "btn btn-sm btn-success" %></td>
         </tr>
       <% end %>
     </tbody>

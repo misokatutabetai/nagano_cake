@@ -11,32 +11,32 @@
         <tr>
           <td class="col-4">購入者</td>
           <td class="col-8">
-            <%= link_to root_path do %>
-              山田 花子
+            <%= link_to admin_customer_path(@order.customer.id) do %>
+              <%= @order.customer.last_name %> <%= @order.customer.first_name %>
             <% end %>
           </td>
         </tr>
         <tr>
           <td>注文日</td>
-          <td>Date</td>
+          <td><%= @order.created_at.to_date %></td>
         </tr>
         <tr>
           <td>配送先</td>
           <td>
-            〒150-0041<br>
-            東京都渋谷区神南1丁目19-11 パークスクウェア24階<br>
-            山田 花子
+            〒<%= @order.postal_code %><br>
+            <%= @order.address %><br>
+            <%= @order.name %>
           </td>
         </tr>
         <tr>
           <td>支払方法</td>
-          <td>Payment_method</td>
+          <td><%= @order.payment_method_i18n %></td>
         </tr>
         <tr>
           <td>注文ステータス</td>
           <td>
-          <%= form_with class: "d-flex" do |f| %>
-            <%= f.select :status, options_for_select([["入金待ち","status"],["test","test"]]) %>
+          <%= form_with model: [:admin, @order], method: :PATCH, class: "d-flex" do |f| %>
+            <%= f.select :status, Order.statuses.keys.map {|k| [I18n.t("enums.order.status.#{k}"), k]}, {selected: @order.status} %>
             <%= f.submit "変更", class: "btn btn-sm btn-success ml-2" %>
           <% end %>
           </td>
@@ -48,17 +48,17 @@
   <div class="col-4 ml-auto mt-auto mb-3 py-3 bg-white">
     <div class="row">
       <div class="col"><strong>商品合計</strong></div>
-      <div class="col text-right">6,490円</div>
+      <div class="col text-right"><%= @order.total_payment %>円</div>
     </div>
     <div class="row mt-2">
       <div class="col"><strong>送料</strong></div>
-      <div class="col text-right">800円</div>
+      <div class="col text-right"><%= @order.shipping_cost %>円</div>
     </div>
     <div class="row mt-2 border border-top border-secondary">
     </div>
     <div class="row mt-2">
       <div class="col"><strong class="text-danger">請求金額合計</strong></div>
-      <div class="col text-right"><strong>7,290円</strong></div>
+      <div class="col text-right"><strong><%= @order.total_payment + @order.shipping_cost %>円</strong></div>
     </div>
   </div>
 </div>
@@ -75,16 +75,16 @@
       </tr>
     </thead>
     <tbody>
-      <% 5.times do %>
+      <% @order.order_details.each do |order_detail| %>
         <%# レコードごとにリンクを付ける場合はJSを使う %>
         <tr>
-          <td>item_name</td>
-          <td class="m-auto">price</td>
-          <td>number</td>
-          <td>subtotal</td>
+          <td><%= order_detail.item.name %></td>
+          <td class="m-auto"><%= order_detail.item.price %></td>
+          <td><%= order_detail.amount %></td>
+          <td><%= order_detail.price %></td>
           <td>
-            <%= form_with class: "d-flex" do |f| %>
-              <%= f.select :status, options_for_select([["--ステータス--","status"],["test","test"]]) %>
+            <%= form_with model: order_detail, url: admin_order_order_detail_path(@order, order_detail), method: :patch, class: "d-flex" do |f| %>
+              <%= f.select :making_status, OrderDetail.making_statuses.keys.map{|k| [I18n.t("enums.order_detail.making_status.#{k}"), k]}, {selected: order_detail.making_status} %>
               <%= f.submit "変更", class: "btn btn-sm btn-success ml-1" %>
             <% end %>
           </td>
