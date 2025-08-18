@@ -12,8 +12,8 @@ class Admin::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      @item = Item.order(updated_at: :desc).limit(1)
-      redirect_to admin_item_path(item.id)
+      @item = Item.order(updated_at: :desc).limit(1).first
+      redirect_to admin_item_path(@item.id)
     else
       @genres = Genre.all
       render action: :new
