@@ -12,8 +12,8 @@ class Admin::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      @item = Item.order(updated_at: :desc).limit(1)
-      redirect_to admin_item_path(item.id)
+      @item = Item.order(updated_at: :desc).limit(1).first
+      redirect_to admin_item_path(@item.id)
     else
       @genres = Genre.all
       render action: :new
@@ -46,6 +46,8 @@ class Admin::ItemsController < ApplicationController
     redirect_to admin_items_path
   end
 
+  private
+  
   def item_params
     params.require(:item).permit(:name, :introduction, :genre_id, :price, :is_active, :image)
   end
