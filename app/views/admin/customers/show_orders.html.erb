@@ -1,7 +1,7 @@
 <h1>admin/homes#<%= action_name %></h1>
 
 <div class="d-flex align-items-center p-3">
-  <span class="page-title">XXXさんの注文履歴</span>
+  <span class="page-title"><%= @customer.last_name %> <%= @customer.first_name %>さんの注文履歴</span>
 </div>
 
 <div class="col">
@@ -14,12 +14,11 @@
       </tr>
     </thead>
     <tbody>
-      <% 20.times do %>
-        <%# レコードごとにリンクを付ける場合はJSを使う %>
+      <% @customer.orders.new_order.each do |order| %>
         <tr>
-          <td>date</td>
-          <td>number</td>
-          <td>status</td>
+          <td><%= link_to order.created_at.strftime("%Y/%m/%d %H:%M:%S"), admin_order_path(order.id) %></td>
+          <td><%= order.order_details.sum(:amount)%></td>
+          <td><%= order.status_i18n %></td>
         </tr>
       <% end %>
     </tbody>

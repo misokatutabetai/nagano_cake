@@ -1,11 +1,11 @@
 <h1>admin/homes#<%= action_name %></h1>
 
 <div class="d-flex align-items-center p-3">
-  <span class="page-title">XXXさんの会員詳細編集</span>
+  <span class="page-title"><%= @customer.last_name %> <%= @customer.first_name %>さんの会員詳細編集</span>
 </div>
 
 <div class="col-md-12 mx-auto">
-  <%= render "admin/homes/user_form" %>
+  <%= render "admin/customers/form", customer: @customer %>
 </div>
 
 <p>Find me in app/views/admin/homes/<%= action_name %>.html.erb</p>

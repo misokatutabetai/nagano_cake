@@ -17,7 +17,6 @@
     </thead>
     <tbody>
       <% @customers.each do |customer| %>
-        <%# レコードごとにリンクを付ける場合はJSを使う %>
         <tr>
           <td><%= customer.id %></td>
           <td>
@@ -26,13 +25,7 @@
             <% end %>
           </td>
           <td><%= customer.email %></td>
-          <td>
-            <% if customer.is_active %>
-              有効
-            <% else %>
-              退会
-            <% end %>
-          </td>
+          <td><%= render "admin/customers/is_active", customer: customer %></td>
         </tr>
       <% end %>
     </tbody>
