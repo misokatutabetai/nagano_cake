@@ -7,13 +7,14 @@
 <div class="col-md-12 mx-auto">
   <div class="row mx-0">
 
-    <div class="col-4 bg-light">
-      <%# 画像用のスペース %>
-      <% if @item.image.attached? %>
-        <%= image_tag @item.image, width: "100%" %>
-      <% else %>
-        <%= image_tag 'no_image', width: "100%" %>
-      <% end %>
+    <div class="col-4 p-2 bg-light d-flex">
+      <div class="my-auto">
+        <% if @item.image.attached? %>
+          <%= image_tag @item.image, width: "100%" %>
+        <% else %>
+          <%= image_tag 'no_image', width: "100%" %>
+        <% end %>
+      </div>
     </div>
 
     <div class="col-8 p-0">
@@ -37,13 +38,7 @@
           </tr>
           <tr>
             <td>販売ステータス</td>
-            <td>
-              <% if @item.is_active %>
-                販売中
-              <% else %>
-                販売停止中
-              <% end %>
-            </td>
+            <td><%= render "admin/items/is_active", item: @item %></td>
           </tr>
         </tbody>
       </table>
