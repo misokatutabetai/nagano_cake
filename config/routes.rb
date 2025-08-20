@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       end
       get "unsubcribe", to: "customers#unsubcribe", as: "unsubcribe"
       patch "withdraw", to: "customers#withdraw", as: "withdraw"
+      get "not_active", to: "customers#not_active", as: "not_active"
     end
     resources :cart_items, only: [:index, :update, :destroy, :create] do
       member do
