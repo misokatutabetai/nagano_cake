@@ -17,8 +17,8 @@
     </div>
 
     <% if devise_mapping.rememberable? %>
-      <div class="mt-3 d-flex justify-content-center">
-        <%= f.check_box :remember_me %>
+      <div class="mt-1 d-flex justify-content-center">
+        <%= f.check_box :remember_me, class: "ml-auto" %>
         <%= f.label :remember_me, class: "ml-1" %>
       </div>
     <% end %>

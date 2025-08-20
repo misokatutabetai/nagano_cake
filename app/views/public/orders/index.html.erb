@@ -17,21 +17,22 @@
       </tr>
     </thed>
     <tbody>
-      <% 3.times do %>
+      <% @orders.each do |order| %>
         <tr>
-          <td>2025/06/01</td>
+          <td><%= order.created_at.strftime("%Y/%m/%d") %></td>
           <td>
-            <div>〒150-0041</div>
-            <div>東京都渋谷区神南1丁目19 パークウェースクエア24階</div>
-            <div>山田 花子</div>
+            <div>〒<%= order.postal_code.slice(0..2) %>-<%= order.postal_code.slice(3..6) %></div>
+            <div><%= order.address %></div>
+            <div><%= order.name %></div>
           </td>
           <td>
-            <p>ショートケーキ</p>
-            <p>チーズケーキ</p>
+            <% order.order_details.each do |order_detail| %>
+              <p><%= order_detail.item.name %></p>
+            <% end %>
           </td>
-          <td>4,500円</td>
-          <td>発送済み</td>
-          <td><%= link_to "表示する", root_path, class: "btn btn-sm btn-primary" %></td>
+          <td><%= order.total_payment.to_s(:delimited) %>円</td>
+          <td><%= order.status_i18n %></td>
+          <td><%= link_to "詳細", order_path(order), class: "btn btn-sm btn-primary" %></td>
         </tr>
       <% end %>
     </tbody>

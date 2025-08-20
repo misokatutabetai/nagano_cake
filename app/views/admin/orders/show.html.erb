@@ -48,17 +48,17 @@
   <div class="col-4 ml-auto mt-auto mb-3 py-3 bg-white">
     <div class="row">
       <div class="col"><strong>商品合計</strong></div>
-      <div class="col text-right"><%= @order.total_payment %>円</div>
+      <div class="col text-right"><%= @order.total_payment.to_s(:delimited) %>円</div>
     </div>
     <div class="row mt-2">
       <div class="col"><strong>送料</strong></div>
-      <div class="col text-right"><%= @order.shipping_cost %>円</div>
+      <div class="col text-right"><%= @order.shipping_cost.to_s(:delimited) %>円</div>
     </div>
     <div class="row mt-2 border border-top border-secondary">
     </div>
     <div class="row mt-2">
       <div class="col"><strong class="text-danger">請求金額合計</strong></div>
-      <div class="col text-right"><strong><%= @order.total_payment + @order.shipping_cost %>円</strong></div>
+      <div class="col text-right"><strong><%= (@order.total_payment + @order.shipping_cost).to_s(:delimited) %>円</strong></div>
     </div>
   </div>
 </div>
@@ -79,9 +79,9 @@
         <%# レコードごとにリンクを付ける場合はJSを使う %>
         <tr>
           <td><%= order_detail.item.name %></td>
-          <td class="m-auto"><%= order_detail.item.price %></td>
+          <td class="m-auto"><%= order_detail.item.price.to_s(:delimited) %></td>
           <td><%= order_detail.amount %></td>
-          <td><%= order_detail.price %></td>
+          <td><%= order_detail.price.to_s(:delimited) %></td>
           <td>
             <%= form_with model: order_detail, url: admin_order_order_detail_path(@order, order_detail), method: :patch, class: "d-flex" do |f| %>
               <%= f.select :making_status, OrderDetail.making_statuses.keys.map.with_index {|k, i| [I18n.t("enums.order_detail.making_status.#{k}"), i]}, {selected: order_detail.making_status} %>
