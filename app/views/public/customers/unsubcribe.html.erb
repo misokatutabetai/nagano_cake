@@ -12,7 +12,7 @@
 
 <div class="d-flex justify-content-around col-6 mx-auto mt-5">
   <%= link_to "退会しない", root_path, class: "btn btn-primary col-5" %>
-  <%= link_to "退会する", root_path, class: "btn btn-danger col-5" %>
+  <%= link_to "退会する", withdraw_path, method: :patch,data: { confirm: '本当に退会しますか？' }, class: "btn btn-danger col-5" %>
 </div>
 
 <p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>

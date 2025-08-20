@@ -11,23 +11,23 @@
       <tbody>
         <tr>
           <td>注文日</td>
-          <td>2025/06/01</td>
+          <td><%= @order.created_at.strftime("%Y/%m/%d %H:%M:%S") %></td>
         </tr>
         <tr>
           <td>発送先</td>
           <td>
-            <div>〒150-0041</div>
-            <div>東京都渋谷区神南1丁目19 パークウェースクエア24階</div>
-            <div>山田 太郎</div>
+            <div>〒<%= @order.postal_code.slice(0..2) %>-<%= @order.postal_code.slice(3..6) %></div>
+            <div><%= @order.address %></div>
+            <div><%= @order.name %></div>
           </td>
         </tr>
         <tr>
           <td>支払い方法</td>
-          <td>クレジットカード</td>
+          <td><%= @order.payment_method_i18n %></td>
         </tr>
         <tr>
           <td>ステータス</td>
-          <td>発送済み</td>
+          <td><%= @order.status_i18n %></td>
         </tr>
       </tbody>
     </table>
@@ -38,17 +38,17 @@
     <div class="mt-2 bg-white py-2" %>
       <div class="row mx-0">
         <div class="col"><strong>商品合計</strong></div>
-        <div class="col text-right">6,490円</div>
+        <div class="col text-right"><%= @order.total_payment.to_s(:delimited) %>円</div>
       </div>
       <div class="row mt-2 mx-0">
         <div class="col"><strong>送料</strong></div>
-        <div class="col text-right">800円</div>
+        <div class="col text-right"><%= @order.shipping_cost.to_s(:delimited) %>円</div>
       </div>
       <div class="row mt-2 border border-top border-secondary mx-0">
       </div>
       <div class="row mt-2 mx-0">
         <div class="col"><strong class="text-danger">請求金額合計</strong></div>
-        <div class="col text-right"><strong>7,290円</strong></div>
+        <div class="col text-right"><strong><%= (@order.total_payment + @order.shipping_cost).to_s(:delimited) %>円</strong></div>
       </div>
     </div>
   </div>
@@ -66,15 +66,21 @@
       </tr>
     </thed>
     <tbody>
-      <% 3.times do %>
+      <% @order.order_details.each do |order_detail| %>
         <tr>
           <td class="d-flex align-items-center">
-            <div class="bg-success" style="height:60px; width:80px"></div>
-            <span class="ml-2">チョコバナナミルフィーユ</span>
+            <div class="bg-light d-flex justify-content-center" style="height:60px; width:80px">
+              <% if order_detail.item.image.attached? %>
+                <%= image_tag order_detail.item.image, height: "100%" %>
+              <% else %>
+                <%= image_tag 'no_image', width: "100%" %>
+              <% end %>
+            </div>
+            <span class="ml-2"><%= order_detail.item.name %></span>
           </td>
-          <td>1,100円</td>
-          <td>3</td>
-          <td>3,300</td>
+          <td><%= order_detail.item.price.to_s(:delimited) %></td>
+          <td><%= order_detail.amount %></td>
+          <td><%= order_detail.price.to_s(:delimited) %></td>
         </tr>
       <% end %>
     </tbody>

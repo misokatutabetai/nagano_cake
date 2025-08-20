@@ -1,5 +1,11 @@
-<%= form_with model: [:admin, genre], local: true, class: "mt-2 d-flex align-items-center" do |f| %>
-  <%= f.label :name, "ジャンル名", class: "col-3 p-0" %>
-  <%= f.text_field :name, autocomplete: true, class: "col-6 p-0" %>
-  <%= f.submit class: "ml-2 btn btn-sm btn-success" %>
+<%= form_with model: [:admin, genre], local: true, class: "mt-2" do |f| %>
+  <div class="row px-3 d-flex align-items-center">
+    <%= f.label :name, "ジャンル名", class: "col-3 p-0" %>
+    <%= f.text_field :name, autocomplete: :off, class: "col-6 p-0" %>
+    <%= f.submit class: "ml-2 btn btn-sm btn-success" %>
+  </div>
+  <div class="row col">
+    <div class="col-3"></div>
+    <div class="col-6"><%= render 'admin/genres/error_message', object: f.object %></div>
+  </div>
 <% end %>

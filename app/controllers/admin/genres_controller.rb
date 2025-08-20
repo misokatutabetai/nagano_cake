@@ -6,8 +6,7 @@ class Admin::GenresController < ApplicationController
   end
 
   def create
-    Genre.create(genre_params)
-    @genre = Genre.new
+    @genre = Genre.create(genre_params)
     @genres = Genre.all
     render action: :index
   end

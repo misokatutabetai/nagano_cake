@@ -5,29 +5,7 @@
 </div>
 
 <div class="col-8 mx-auto">
-  <%= form_with do |f| %>
-    <div class="field mt-1">
-      <%= f.label :postal_code, "郵便番号（ハイフンなし）" %>
-      <div class="col-7 px-0">
-        <%= f.text_field :postal_code, autocomplete: true, class: "col-5" %>
-      </div>
-    </div>
-    <div class="field mt-2">
-      <%= f.label :address, "住所" %>
-      <div class="col-7 px-0">
-        <%= f.text_field :address, autocomplete: true, class: "col w-100" %>
-      </div>
-    </div>
-    <div class="field mt-2">
-      <%= f.label :name, "宛名" %>
-      <div class="col-7 px-0">
-        <%= f.text_field :name, autocomplete: true, class: "col-5" %>
-      </div>
-    </div>
-    <div class="mt-4 d-flex justify-content-center">
-      <%= f.submit "新規登録", class: "btn btn-sm btn-success" %>
-    </div>
-  <% end %>
+  <%= render "public/address/form", address: @address, url_path: address_index_path %>
 </div>
 
 <div class="col mt-3">
@@ -41,14 +19,14 @@
       </tr>
     </thed>
     <tbody>
-      <% 3.times do %>
+      <% @addresses.each do |address| %>
         <tr>
-          <td>1500041</td>
-          <td>東京都渋谷区神南1丁目19-11 パークウェースクエア24階</td>
-          <td>山田 太郎</td>
+          <td><%= address.postal_code %></td>
+          <td><%= address.address %></td>
+          <td><%= address.name %></td>
           <td>
-            <%= link_to "編集する", root_path, class: "btn btn-sm btn-success" %>
-            <%= link_to "削除する", root_path, class: "btn btn-sm btn-danger" %>
+            <%= link_to "編集する", edit_address_path(address), class: "btn btn-sm btn-success" %>
+            <%= link_to "削除する", address_path(address), method: :delete, data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
           </td>
         </tr>
       <% end %>
