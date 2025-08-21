@@ -11,15 +11,21 @@
       <div class="col-5 bg-success" style="height:200px">
         <%# 画像挿入用 %>
       </div>
-
       <div class="col-7 pl-4">
-        <div class="my-2">苺のショートケーキ（ホール）</div>
-        <div class="my-2">栃木県産のとちおとめを贅沢に使用しています。あまああああああいよ</div>
-        <div class="my-4">￥ 2,750（税込み）</div>
+        <div class="my-2">商品名
+          <%= @item.name %>
+        </div>
+        <div class="my-2">商品説明
+          <%= @item.introduction %>
+        </div>
+        <div class="my-4">価格
+          <%= @item.price.to_s(:delimited) %>円(税込み)</div>
+        </div>
         <div>
-          <%= form_with do |f| %>
+          <%= form_with model:@cart_item,url: cart_items_path,method: :post do |f| %>
             <div class="d-flex justify-content-center align-items-center" >
-              <%= f.select :number, options_for_select([["-個数-","number"],["test","test"]]) %>
+              <%= f.hidden_field :item_id, value: @item.id %>
+              <%= f.select :amount, options_for_select([["-個数-","amount"],["1"],["2"],["3"],["4"],["5"]]) %>
               <%= f.submit "カートに入れる", class: "btn btn-sm btn-success ml-2" %>
             </div>
           <% end %>

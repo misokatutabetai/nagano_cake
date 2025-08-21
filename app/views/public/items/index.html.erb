@@ -8,14 +8,17 @@
   <div class="col-10 pr-0">
     <h3 class="mt-1">商品一覧（全XXX件）</h3>
     <div class="row mx-0">
-      <% 8.times do %>
+      <% @items.each do |item| %>
         <div class="col-3 px-1 my-3">
-          <div class="border border-dark">
-            <%= link_to do %>
+          <div class="border border-dark">   
+          <%= link_to item_path(item.id) do %>
               <div class="bg-success" style="height: 120px">
               </div>
-              <div class="my-1 px-2">洋梨のチーズタルト</div>
-              <div class="my-1 px-2">価格 <%= 1200.to_s(:delimited) %>円</div>
+              <div class="my-1 px-2">
+                <%= item.name %>
+              </div>
+              <div class="my-1 px-2"> 価格
+              <%= item.price.to_s(:delimited) %>円</div>
           <% end %>
           </div>
         </div>
