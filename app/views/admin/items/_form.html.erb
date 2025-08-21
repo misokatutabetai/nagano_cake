@@ -7,16 +7,22 @@
     <%= f.label :name, "商品名" %>
     <%= f.text_field :name, autofocus: true, autocomplete: true, class: "col-8 px-1" %>
   </div>
+  <%= render 'admin/shared/error_message', object: f.object, attribute: :name %>
+
   <div class="field mt-2">
     <%= f.label :introduction, "商品説明" %>
     <%= f.text_area :introduction, autofocus: true, class: "col-8 px-1" %>
   </div>
+  <%= render 'admin/shared/error_message', object: f.object, attribute: :introduction %>
+
   <div class="field mt-2">
     <%= f.label :genre_id, "ジャンル" %>
     <div class="col-8 px-0">
-      <%= f.collection_select :genre_id, genres.all, :id, :name, include_blank: '--ジャンルの選択--', class: "w-100" %>
+      <%= f.collection_select :genre_id, genres.all, :id, :name, include_blank: "--ジャンルの選択--", class: "w-100" %>
     </div>
   </div>
+  <%= render 'admin/shared/error_message', object: f.object, attribute: :genre_id %>
+
   <div class="field mt-2">
     <%= f.label :price, "税抜価格" %>
     <div class="col-8 p-0">
@@ -24,6 +30,8 @@
       <span>円</span>
     </div>
   </div>
+  <%= render 'admin/shared/error_message', object: f.object, attribute: :price %>
+
   <div class="field mt-2">
     <div>販売ステータス</div>
 

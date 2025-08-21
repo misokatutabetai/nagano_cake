@@ -5,7 +5,7 @@ class Item < ApplicationRecord
 
   has_one_attached :image
 
-  validates :genre, presence: true, if: -> { genre_id.present? }
+  validates :genre_id, inclusion: { in: Genre.pluck(:id) }
   validates :name, presence:true, uniqueness: true
   validates :introduction, presence:true
   validates :price, presence:true
