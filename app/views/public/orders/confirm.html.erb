@@ -16,15 +16,14 @@
         </tr>
       </thed>
       <tbody>
-        <% 3.times do %>
+        <% current_customer.cart_items.each do |cart_item| %>
           <tr>
             <td class="d-flex align-items-center">
-              <div class="bg-success" style="height:60px; width:80px"></div>
-              <span class="ml-2">チョコバナナミルフィーユ</span>
+              <span class="ml-2"><%= cart_item.item.name %></span>
             </td>
-            <td>1,100円</td>
-            <td>3</td>
-            <td>3,300</td>
+            <td><%= cart_item.item.price.to_s(:delimited) %>円</td>
+            <td><%= cart_item.amount %></td>
+            <td><%= (cart_item.item.price * cart_item.amount).to_s(:delimited) %></td>
           </tr>
         <% end %>
       </tbody>
@@ -34,35 +33,44 @@
   <div class="col-4 ml-auto mt-auto mb-3 py-3 bg-white">
     <div class="row">
       <div class="col"><strong>商品合計</strong></div>
-      <div class="col text-right">6,490円</div>
+      <div class="col text-right"><%= @order.total_payment.to_s(:delimited) %>円</div>
     </div>
     <div class="row mt-2">
       <div class="col"><strong>送料</strong></div>
-      <div class="col text-right">800円</div>
+      <div class="col text-right"><%= @order.shipping_cost.to_s(:delimited) %>円</div>
     </div>
     <div class="row mt-2 border border-top border-secondary">
     </div>
     <div class="row mt-2">
       <div class="col"><strong class="text-danger">請求金額合計</strong></div>
-      <div class="col text-right"><strong>7,290円</strong></div>
+      <div class="col text-right"><strong><%= (@order.total_payment + @order.shipping_cost).to_s(:delimited) %>円</strong></div>
     </div>
   </div>
 </div>
 
 <div class="d-flex align-items-center mt-3">
   <div class="col-2"><strong>支払い方法</strong></div>
-  <div>クレジットカード</div>
+  <div><%= @order.payment_method_i18n %></div>
 </div>
 <div class="d-flex align-items-center mt-2">
   <div class="col-2"><strong>お届け先</strong></div>
   <div>
-    <div>〒150-0041 東京都渋谷区神南1丁目19-11 パークウェースクエア24階</div>
-    <div>山田 花子</div>
+    <div><%= @order.address %></div>
+    <div><%= @order.name %></div>
   </div>
 </div>
 
 <div class="mt-5 d-flex justify-content-center">
-  <%= link_to "注文を確定する", root_path, class: "btn btn-sm btn-success" %>
+  <%= form_with model: @order, url: thanks_path, method: :get, local: true do |f| %>
+  <%= f.hidden_field :postal_code, value: @order.postal_code %>
+  <%= f.hidden_field :address, value: @order.address %>
+  <%= f.hidden_field :name, value: @order.name %>
+  <%= f.hidden_field :shipping_cost, value: @order.shipping_cost %>
+  <%= f.hidden_field :total_payment, value: (@order.total_payment + @order.shipping_cost) %>
+  <%= f.hidden_field :payment_method, value: @order.payment_method %>
+  <%= f.hidden_field :status, value: @order.status %>
+  <%= f.submit "注文を確定する", class: "btn btn-sm btn-success" %>
+  <% end %>
 </div>
 
 <p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>
