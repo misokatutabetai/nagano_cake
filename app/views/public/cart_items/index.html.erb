@@ -22,22 +22,24 @@
       </tr>
     </thed>
     <tbody>
-      <% 3.times do %>
+      <% @cart_items.each do |cart_item| %>
         <tr>
           <td class="d-flex align-items-center">
             <div class="bg-success" style="height:60px; width:80px"></div>
-            <span class="ml-2">チョコバナナミルフィーユ</span>
+            <span class="ml-2">
+              <%= cart_item.item.name %>
+            </span>
           </td>
-          <td>1,100円</td>
+          <td><%= cart_item.item.price.to_s(:delimited) %>円</td>
           <td>
             <%= form_with do |f| %>
               <div class="d-flex justify-content-center align-items-center" >
-                <%= f.select :number, options_for_select([["3","number"],["10","test"]]) %>
+                <%= f.select :amount, options_for_select([["-個数-","amount"],["1"],["2"],["3"],["4"],["5"]],selected: cart_item.amount) %>
                 <%= link_to "変更", root_path, class: "btn btn-sm btn-success ml-2" %>
               </div>
             <% end %>
           </td>
-          <td>3,300</td>
+          <td><%= (cart_item.item.price*cart_item.amount).to_s(:delimited) %>円</td>
           <td><%= link_to "削除する", root_path, class: "btn btn-sm btn-danger" %></td>
         </tr>
       <% end %>
@@ -53,7 +55,7 @@
     <table class="table mb-0">
       <tbody>
         <td class="border border-dark bg-light">合計金額</td>
-        <td class="border border-dark"><strong>9,900円</strong></td>
+        <td class="border border-dark"><strong></strong></td>
       </tbody>
     </table>
   </div>
