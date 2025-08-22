@@ -1,9 +1,12 @@
 class Public::CartItemsController < ApplicationController
   def index
     @cart_items = CartItem.all
+    @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
   end
 
   def update
+    @cart_item = CartItem.find(params[:id])
+    @cart_item.update(cart_item_params)
   end
 
   def destroy

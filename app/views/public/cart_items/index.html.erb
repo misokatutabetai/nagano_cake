@@ -32,10 +32,10 @@
           </td>
           <td><%= cart_item.item.price.to_s(:delimited) %>円</td>
           <td>
-            <%= form_with do |f| %>
+            <%= form_with model:@cart_item, url:cart_items_path, local:true do|f| %>
               <div class="d-flex justify-content-center align-items-center" >
                 <%= f.select :amount, options_for_select([["-個数-","amount"],["1"],["2"],["3"],["4"],["5"]],selected: cart_item.amount) %>
-                <%= link_to "変更", root_path, class: "btn btn-sm btn-success ml-2" %>
+                <%= f.submit "変更", class: "btn btn-sm btn-success ml-2" %>
               </div>
             <% end %>
           </td>
@@ -55,7 +55,7 @@
     <table class="table mb-0">
       <tbody>
         <td class="border border-dark bg-light">合計金額</td>
-        <td class="border border-dark"><strong></strong></td>
+        <td class="border border-dark"><strong>￥<%= @total.round.to_s(:delimited)%></strong></td>
       </tbody>
     </table>
   </div>
