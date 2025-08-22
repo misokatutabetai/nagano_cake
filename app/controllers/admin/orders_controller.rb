@@ -9,7 +9,6 @@ class Admin::OrdersController < ApplicationController
   end
 
   def update
-    byebug
     @order = Order.find(params[:id])
 
     if order_params[:status] == "confirmed_payment"

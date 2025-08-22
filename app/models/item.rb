@@ -9,4 +9,14 @@ class Item < ApplicationRecord
   validates :name, presence:true, uniqueness: true
   validates :introduction, presence:true
   validates :price, presence:true
+
+  scope :new_order, -> { order(created_at: :desc) }
+
+  def with_tax_price
+    (price * 1.1).floor
+  end
+
+  def get_image
+    (image.attached?) ? image : 'no_image.jpg'
+  end
 end

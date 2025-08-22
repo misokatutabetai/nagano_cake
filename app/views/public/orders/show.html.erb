@@ -38,7 +38,7 @@
     <div class="mt-2 bg-white py-2" %>
       <div class="row mx-0">
         <div class="col"><strong>商品合計</strong></div>
-        <div class="col text-right"><%= @order.total_payment.to_s(:delimited) %>円</div>
+        <div class="col text-right"><%= @order.subtotal_total.to_s(:delimited) %>円</div>
       </div>
       <div class="row mt-2 mx-0">
         <div class="col"><strong>送料</strong></div>
@@ -48,7 +48,7 @@
       </div>
       <div class="row mt-2 mx-0">
         <div class="col"><strong class="text-danger">請求金額合計</strong></div>
-        <div class="col text-right"><strong><%= (@order.total_payment + @order.shipping_cost).to_s(:delimited) %>円</strong></div>
+        <div class="col text-right"><strong><%= @order.total_payment.to_s(:delimited) %>円</strong></div>
       </div>
     </div>
   </div>
@@ -59,28 +59,24 @@
   <table class="table mt-2">
     <thed>
       <tr>
-        <th>商品名</th>
-        <th>単価</th>
-        <th>数量</th>
-        <th>小計</th>
+        <th class="col-7">商品名</th>
+        <th class="col-2 text-center">単価（税込）</th>
+        <th class="col-1 text-center">数量</th>
+        <th class="col-2 text-center">小計</th>
       </tr>
     </thed>
     <tbody>
       <% @order.order_details.each do |order_detail| %>
         <tr>
           <td class="d-flex align-items-center">
-            <div class="bg-light d-flex justify-content-center" style="height:60px; width:80px">
-              <% if order_detail.item.image.attached? %>
-                <%= image_tag order_detail.item.image, height: "100%" %>
-              <% else %>
-                <%= image_tag 'no_image', width: "100%" %>
-              <% end %>
+            <div class="bg-light d-flex justify-content-center border border-dark">
+              <%= image_tag order_detail.item.get_image, size: '60x60' %>
             </div>
             <span class="ml-2"><%= order_detail.item.name %></span>
           </td>
-          <td><%= order_detail.item.price.to_s(:delimited) %></td>
-          <td><%= order_detail.amount %></td>
-          <td><%= order_detail.price.to_s(:delimited) %></td>
+          <td class="text-right"><%= order_detail.item.with_tax_price.to_s(:delimited) %>円</td>
+          <td class="text-center"><%= order_detail.amount %></td>
+          <td class="text-right"><%= order_detail.subtotal.to_s(:delimited) %>円</td>
         </tr>
       <% end %>
     </tbody>
