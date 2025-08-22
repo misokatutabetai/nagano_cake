@@ -20,16 +20,16 @@ class Public::OrdersController < ApplicationController
       render action: :new
     end
 
-    @order.total_payment = 0
+    @order.total_payment = @order.shipping_cost
     current_customer.cart_items.each do |cart_item|
-      @order.total_payment += cart_item.item.price * cart_item.amount
+      @order.total_payment += cart_item.item.with_tax_price * cart_item.amount
     end
   end
 
   def thanks
-    order = current_customer.order.new(order_params)
+    order = current_customer.orders.new(order_params)
     if order.save
-      order.cart_items.eact do |cart_item|
+      current_customer.cart_items.each do |cart_item|
         order_detail = order.order_details.new
         order_detail.item_id = cart_item.item.id
         order_detail.price = cart_item.item.price * cart_item.amount
@@ -51,7 +51,7 @@ class Public::OrdersController < ApplicationController
   end
 
   def show
-    @order = Order.find(current_customer.id)
+    @order = Order.find(params[:id])
   end
 
   private

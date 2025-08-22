@@ -36,7 +36,7 @@
           <td>注文ステータス</td>
           <td>
           <%= form_with model: [:admin, @order], method: :PATCH, local: true, class: "d-flex" do |f| %>
-            <%= f.select :status, Order.statuses.keys.map.with_index {|k, i| [I18n.t("enums.order.status.#{k}"), i]}, {selected: @order.status} %>
+            <%= f.select :status, Order.statuses.keys.map {|k| [I18n.t("enums.order.status.#{k}"), k]}, {selected: @order.status} %>
             <%= f.submit "変更", class: "btn btn-sm btn-success ml-2" %>
           <% end %>
           </td>
@@ -68,9 +68,9 @@
     <thead>
       <tr>
         <th class="col-4">商品名</th>
-        <th class="col-2">単価（税込）</th>
-        <th class="col-1">数量</th>
-        <th class="col-2">小計</th>
+        <th class="col-2 text-right">単価（税込）</th>
+        <th class="col-1 text-center">数量</th>
+        <th class="col-2 text-right">小計</th>
         <th class="col-3">制作ステータス</th>
       </tr>
     </thead>
@@ -79,12 +79,12 @@
         <%# レコードごとにリンクを付ける場合はJSを使う %>
         <tr>
           <td><%= order_detail.item.name %></td>
-          <td class="m-auto"><%= order_detail.item.price.to_s(:delimited) %></td>
-          <td><%= order_detail.amount %></td>
-          <td><%= order_detail.price.to_s(:delimited) %></td>
-          <td>
+          <td class="text-right"><%= order_detail.item.with_tax_price.to_s(:delimited) %>円</td>
+          <td class="text-center"><%= order_detail.amount %></td>
+          <td class="text-right"><%= order_detail.subtotal.to_s(:delimited) %>円</td>
+          <td class="text-center">
             <%= form_with model: order_detail, url: admin_order_order_detail_path(@order, order_detail), method: :patch, class: "d-flex" do |f| %>
-              <%= f.select :making_status, OrderDetail.making_statuses.keys.map.with_index {|k, i| [I18n.t("enums.order_detail.making_status.#{k}"), i]}, {selected: order_detail.making_status} %>
+              <%= f.select :making_status, OrderDetail.making_statuses.keys.map {|k| [I18n.t("enums.order_detail.making_status.#{k}"), k]}, {selected: order_detail.making_status} %>
               <%= f.submit "変更", class: "btn btn-sm btn-success ml-1" %>
             <% end %>
           </td>

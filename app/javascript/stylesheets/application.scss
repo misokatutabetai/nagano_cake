@@ -1,8 +1,8 @@
 @use '~bootstrap/scss/bootstrap';
 
-.container {
+main .container {
   // background-color: white;
-  background-color:khaki;
+  // background-color:khaki;
 }
 
 .nav-link {
@@ -55,4 +55,12 @@ tbody {
 
 .border {
   border-radius: 5px;
+}
+
+.top-iamge {
+  height: 400px;
+}
+
+.top-message {
+  position:  absolute;
 }

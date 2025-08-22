@@ -1,10 +1,10 @@
-<div class="bg-light text-center border border-dark">
+<div class="text-center border border-dark bg-light">
   <p class="border-dark border-bottom py-2 mb-1">ジャンル一覧</p>
   <ul class="list-group list-group-flush text-left">
-    <% 10.times do %>
+    <% genres.each do |genre| %>
       <li class="my-1 px-2">
         <%= link_to root_path do %>
-          <span>ジャンル名</span>
+          <span><%= genre.name %></span>
         <% end %>
       </li>
     <% end %>

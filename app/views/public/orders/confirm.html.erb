@@ -21,9 +21,9 @@
             <td class="d-flex align-items-center">
               <span class="ml-2"><%= cart_item.item.name %></span>
             </td>
-            <td><%= cart_item.item.price.to_s(:delimited) %>円</td>
+            <td><%= cart_item.item.with_tax_price.to_s(:delimited) %>円</td>
             <td><%= cart_item.amount %></td>
-            <td><%= (cart_item.item.price * cart_item.amount).to_s(:delimited) %></td>
+            <td><%= cart_item.subtotal.to_s(:delimited) %>円</td>
           </tr>
         <% end %>
       </tbody>
@@ -43,7 +43,7 @@
     </div>
     <div class="row mt-2">
       <div class="col"><strong class="text-danger">請求金額合計</strong></div>
-      <div class="col text-right"><strong><%= (@order.total_payment + @order.shipping_cost).to_s(:delimited) %>円</strong></div>
+      <div class="col text-right"><strong><%= @order.total_payment.to_s(:delimited) %>円</strong></div>
     </div>
   </div>
 </div>
@@ -66,7 +66,7 @@
   <%= f.hidden_field :address, value: @order.address %>
   <%= f.hidden_field :name, value: @order.name %>
   <%= f.hidden_field :shipping_cost, value: @order.shipping_cost %>
-  <%= f.hidden_field :total_payment, value: (@order.total_payment + @order.shipping_cost) %>
+  <%= f.hidden_field :total_payment, value: @order.total_payment %>
   <%= f.hidden_field :payment_method, value: @order.payment_method %>
   <%= f.hidden_field :status, value: @order.status %>
   <%= f.submit "注文を確定する", class: "btn btn-sm btn-success" %>

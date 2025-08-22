@@ -9,11 +9,7 @@
 
     <div class="col-4 p-2 bg-light d-flex">
       <div class="my-auto">
-        <% if @item.image.attached? %>
-          <%= image_tag @item.image, width: "100%" %>
-        <% else %>
-          <%= image_tag 'no_image', width: "100%" %>
-        <% end %>
+        <%= image_tag @item.get_image, size: '230x200' %>
       </div>
     </div>
 
@@ -34,7 +30,7 @@
           </tr>
           <tr>
             <td>税込価格<br>(税抜価格)</td>
-            <td><%= (@item.price * @tax).round.to_s(:delimited) %>円（<%= @item.price.to_s(:delimited) %>円）</td>
+            <td><%= @item.with_tax_price.to_s(:delimited) %>円（<%= @item.price.to_s(:delimited) %>円）</td>
           </tr>
           <tr>
             <td>販売ステータス</td>
