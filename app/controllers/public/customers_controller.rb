@@ -10,9 +10,11 @@ class Public::CustomersController < ApplicationController
   def update
     @customer = Customer.find(current_customer.id)
     if @customer.update(customer_params)
+      flash[:notice] = I18n.t("notice.messages.update")
       redirect_to action: :show
     else
-      render action: :edit
+      flash.now[:alert] = I18n.t("alert.messages.update")
+      render :edit
     end
   end
 

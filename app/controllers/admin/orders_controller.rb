@@ -11,28 +11,32 @@ class Admin::OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
 
-    if order_params[:status] == "confirmed_payment"
-      @order.order_details.each do |order_detail|
-        if order_detail.making_status == "not_producible"
-          order_detail.update(making_status: :waiting_production)
+    if @order.update(order_params)
+      if order_params[:status] == "confirmed_payment"
+        @order.order_details.each do |order_detail|
+          if order_detail.making_status == "not_producible"
+            order_detail.update(making_status: :waiting_production)
+          end
         end
+      elsif order_params[:status] == "in_progress"
+        @order.order_details.each do |order_detail|
+          if order_detail.making_status == "not_producible" || order_detail.making_status == "waiting_production"
+            order_detail.update(making_status: :in_production)
+          end
+        end
+      elsif order_params[:status] == "preparing_shipment" || order_params[:status] == "shipped"
+        @order.order_details.each do |order_detail|
+          if order_detail.making_status != "not_producible"
+            order_detail.update(making_status: :pruduced)
+          end
+        end 
       end
-    elsif order_params[:status] == "in_progress"
-      @order.order_details.each do |order_detail|
-        if order_detail.making_status == "not_producible" || order_detail.making_status == "waiting_production"
-          order_detail.update(making_status: :in_production)
-        end
-      end
-    elsif order_params[:status] == "preparing_shipment" || order_params[:status] == "shipped"
-      @order.order_details.each do |order_detail|
-        if order_detail.making_status != "not_producible"
-          order_detail.update(making_status: :pruduced)
-        end
-      end 
+      flash[:notice] = I18n.t("notice.messages.update")
+      redirect_to action: admin_order_path(@order.id)
+    else
+      flash.now[:alert] = I18n.t("alert.messages.update")
+      render admin_order_path(@order.id)
     end
-
-    @order.update(order_params)
-    render action: :show
   end
 
   private

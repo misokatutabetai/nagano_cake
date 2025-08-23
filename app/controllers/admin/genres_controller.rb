@@ -6,9 +6,15 @@ class Admin::GenresController < ApplicationController
   end
 
   def create
-    @genre = Genre.create(genre_params)
-    @genres = Genre.all
-    render action: :index
+    @genre = Genre.new(genre_params)
+    if @genre.save
+      flash[:notice] = I18n.t("notice.messages.save")
+      redirect_to action: :index
+    else
+      flash.now[:alert] = I18n.t("alert.messages.save")
+      @genres = Genre.all
+      render :index
+    end
   end
 
   def edit
@@ -18,16 +24,23 @@ class Admin::GenresController < ApplicationController
   def update
     @genre = Genre.find(params[:id])
     if @genre.update(genre_params)
-      redirect_to admin_genres_path
+      flash[:notice] = I18n.t("notice.messages.update")
+      redirect_to action: :index
     else
-      render action: :edit
+      flash.now[:alert] = I18n.t("alert.messages.update")
+      render :edit
     end
   end
 
   def destroy
     @genre = Genre.find(params[:id])
-    @genre.destroy
-    redirect_to admin_genres_path
+    if @genre.destroy
+      flash[:notice] = I18n.t("notice.messages.destroy")
+      redirect_to action: :index
+    else
+      flash.now[:alert] = I18n.t("alert.messages.destroy")
+      render :index
+    end
   end
 
   private
