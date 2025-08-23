@@ -9,28 +9,33 @@
     <div class="mt-4">
       <div><strong>支払い方法</strong></div>
       <div class="col mt-2">
-        <%= f.radio_button :payment_method, :credit_card %>
+        <%= f.radio_button :payment_method, :credit_card, checked: true %>
         <%= f.label :payment_method, "クレジットカード", value: :credit_card %>
         <br>
         <%= f.radio_button :payment_method, :transfer %>
         <%= f.label :payment_method, "銀行振込", value: :transfer, class: "mt-3" %>
       </div>
     </div>
+
     <div class="mt-4">
       <div><strong>お届け先</strong></div>
       <div class="col mt-2">
-        <%= f.radio_button :select_address, :my_address %>
+        <%= f.radio_button :select_address, :my_address, checked: true %>
         <%= f.label :select_address, "ご自身の住所", value: :my_address %>
         <div class="col mt-1">
-          <div>〒150-0041 東京都渋谷区神南1丁目19-11 パークウェースクエア24階</div>
-          <div>山田 花子</div>
+          <div>〒<%= @order.customer.postal_code.slice(0..2) %>-<%= @order.customer.postal_code.slice(3..6) %></div>
+          <div><%= @order.customer.address %></div>
+          <div><%= @order.customer.last_name %> <%= @order.customer.first_name %></div>
         </div>
-        <%= f.radio_button :select_address, :addresses %>
-        <%= f.label :select_address, "登録住所先から選択", value: :addresses, class: "mt-3" %> 
-        <div class="col">
-          <%# ラジオボタンと連動させるならJSを使用 %>
-          <%= f.select :address_id, options_from_collection_for_select(@order.customer.addresses, :id, :address_display), {}, class: "mt-1 w-100" %>
-        </div>
+
+        <% if @order.customer.addresses.present? %>
+          <%= f.radio_button :select_address, :addresses %>
+          <%= f.label :select_address, "登録住所先から選択", value: :addresses, class: "mt-3" %> 
+          <div class="col">
+            <%= f.select :address_id, options_from_collection_for_select(@order.customer.addresses, :id, :address_display), {}, class: "mt-1 w-100" %>
+          </div>
+        <% end %>
+
         <%= f.radio_button :select_address, :new_address %>
         <%= f.label :select_address, "新しいお届け先", value: :new_address, class: "mt-3" %> 
         <div class="col">
