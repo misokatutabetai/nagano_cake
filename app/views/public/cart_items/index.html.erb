@@ -4,10 +4,12 @@
   <div class="d-flex align-items-center p-3">
     <span class="page-title">ショッピングカート</span>
   </div>
-
+  
+  <% @cart_items.each do |cart_item| %>
   <div class="ml-auto mr-3">
-    <%= link_to "カートを空にする", class: "btn btn-sm btn-danger" %>
+    <%= link_to "カートを空にする", destroy_all_cart_item_path(cart_item.id) , method: :delete ,"data-confirm" => "カートを空にしますか？" ,class: "btn btn-sm btn-danger" %>
   </div>
+  <% end %>
 </div>
 
 <div class="col mx-auto">
@@ -25,7 +27,9 @@
       <% @cart_items.each do |cart_item| %>
         <tr>
           <td class="d-flex align-items-center">
-            <div class="bg-success" style="height:60px; width:80px"></div>
+            <div class="bg-success" style="height:60px; width:80px">
+              <%= image_tag cart_item.item.get_image, size: '80x60' %>
+            </div>
             <span class="ml-2">
               <%= cart_item.item.name %>
             </span>
@@ -61,12 +65,13 @@
   </div>
 </div>
 
+<% if @cart_items.empty? %>
 <div class="mt-5 d-flex justify-content-center">
-  <%= link_to "情報入力にすすむ", root_path, class: "btn btn-sm btn-success" %>
+  <%= link_to "情報入力にすすむ", "#", class: "btn btn-sm btn-success" %>
 </div>
-
+<% else %>
 <div class="mt-5 d-flex justify-content-center">
   <%= link_to "情報入力にすすむ", new_order_path, class: "btn btn-sm btn-primary" %>
 </div>
-
+<% end %>
 <p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>
