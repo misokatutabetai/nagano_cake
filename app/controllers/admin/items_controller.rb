@@ -12,17 +12,17 @@ class Admin::ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
     if @item.save
-      @item = Item.order(updated_at: :desc).limit(1).first
+      flash[:notice] = I18n.t("notice.messages.save")
       redirect_to admin_item_path(@item.id)
     else
       @genres = Genre.all
-      render action: :new
+      flash.now[:alert] = I18n.t("alert.messages.save")
+      render :new
     end
   end
 
   def show
     @item = Item.find(params[:id])
-    @tax = 1.1
   end
 
   def edit
@@ -33,17 +33,24 @@ class Admin::ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      redirect_to admin_item_path(params[:id])
+      flash[:notice] = I18n.t("notice.messages.update")
+      redirect_to action: admin_item_path(@item.id)
     else
       @genres = Genre.all
-      render action: :edit
+      flash.now[:alert] = I18n.t("alert.messages.update")
+      render :edit
     end
   end
 
   def destroy
     @item = Item.find(params[:id])
-    @item.destroy
-    redirect_to admin_items_path
+    if @item.destroy
+      flash[:notice] = I18n.t("notice.messages.destroy")
+      redirect_to action: :index
+    else
+      flash.now[:alert] = I18n.t("alert.messages.destroy")
+      render :index
+    end
   end
 
   private

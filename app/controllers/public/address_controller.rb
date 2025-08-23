@@ -11,26 +11,35 @@ class Public::AddressController < ApplicationController
   def create
     @address = current_customer.addresses.new(address_params)
     if @address.save
+      flash[:notice] = I18n.t("notice.messages.save")
       redirect_to action: :index
     else
       @addresses = Address.where(customer_id: current_customer.id)
-      render action: :index
+      flash.now[:alert] = I18n.t("alert.messages.save")
+      render :index
     end
   end
 
   def update
     @address = Address.find(params[:id])
     if @address.update(address_params)
+      flash[:notice] = I18n.t("notice.messages.update")
       redirect_to action: :index
     else
-      render action: :edit
+      flash[:alert] = I18n.t("alert.messages.update")
+      render :edit
     end
   end
 
   def destroy
     @address = Address.find(params[:id])
-    @address.destroy
-    redirect_to action: :index
+    if  @address.destroy
+      flash[:notice] = I18n.t("notice.messages.destroy")
+      redirect_to action: :index
+    else
+      flash[:alert] = I18n.t("alert.messages.destroy")
+      render :index
+    end
   end
 
   private
