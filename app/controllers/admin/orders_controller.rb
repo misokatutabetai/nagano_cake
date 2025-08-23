@@ -32,7 +32,7 @@ class Admin::OrdersController < ApplicationController
         end 
       end
       flash[:notice] = I18n.t("notice.messages.update")
-      redirect_to action: admin_order_path(@order.id)
+      redirect_to admin_order_path(@order.id)
     else
       flash.now[:alert] = I18n.t("alert.messages.update")
       render admin_order_path(@order.id)

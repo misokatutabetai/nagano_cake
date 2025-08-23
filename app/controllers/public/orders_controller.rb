@@ -16,8 +16,12 @@ class Public::OrdersController < ApplicationController
       @order.postal_code = address.postal_code
       @order.address = address.address
       @order.name = address.name
+    elsif params[:order][:select_address] == "new_address"
+      @order.postal_code = params[:order][:postal_code]
+      @order.address = params[:order][:address]
+      @order.name = params[:order][:name]
     else
-      render action: :new
+      render :new
     end
 
     @order.total_payment = @order.shipping_cost
