@@ -23,11 +23,11 @@ Rails.application.routes.draw do
       patch "withdraw", to: "customers#withdraw", as: "withdraw"
       get "not_active", to: "customers#not_active", as: "not_active"
     end
-    resources :cart_items, only: [:index, :update, :destroy, :create] do
-      member do
-        delete :destroy_all
-      end
+
+    scope :cart_items do
+      delete :destroy_all, to: "cart_items#destroy_all"
     end
+    resources :cart_items, only: [:index, :update, :destroy, :create] 
 
     scope :orders do
       get :confirm, to: "orders#confirm"
