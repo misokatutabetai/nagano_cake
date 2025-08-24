@@ -1,20 +1,17 @@
 <h1>public/homes#<%= action_name %></h1>
-
-<div class="row mx-0 d-flex align-items-center" %>
+<div class="row mx-0 d-flex align-items-center">
   <div class="d-flex align-items-center p-3">
     <span class="page-title">ショッピングカート</span>
   </div>
-  
-  <% @cart_items.each do |cart_item| %>
+
   <div class="ml-auto mr-3">
-    <%= link_to "カートを空にする", destroy_all_cart_item_path(cart_item.id) , method: :delete ,"data-confirm" => "カートを空にしますか？" ,class: "btn btn-sm btn-danger" %>
+    <%= link_to "カートを空にする", destroy_all_path, method: :delete, data: { confirm: "カートを空にしますか？" }, class: "btn btn-sm btn-danger" %>
   </div>
-  <% end %>
 </div>
 
 <div class="col mx-auto">
   <table class="table">
-    <thed>
+    <thead>
       <tr>
         <th>商品名</th>
         <th>単価</th>
@@ -22,30 +19,30 @@
         <th>小計</th>
         <th></th>
       </tr>
-    </thed>
+    </thead>
     <tbody>
       <% @cart_items.each do |cart_item| %>
-        <tr>
-          <td class="d-flex align-items-center">
-            <div class="bg-success" style="height:60px; width:80px">
-              <%= image_tag cart_item.item.get_image, size: '80x60' %>
+      <tr>
+        <td class="d-flex align-items-center">
+          <div class="bg-success" style="height:60px; width:80px">
+            <%= image_tag cart_item.item.get_image, size: '80x60' %>
+          </div>
+          <span class="ml-2">
+            <%= cart_item.item.name %>
+          </span>
+        </td>
+        <td><%= cart_item.item.with_tax_price.to_s(:delimited) %>円(税込)</td>
+        <td>
+          <%= form_with model: cart_item, url: cart_item_path(cart_item.id), local: true do |f| %>
+            <div class="d-flex justify-content-center align-items-center">
+              <%= f.select :amount, options_for_select([["1"],["2"],["3"],["4"],["5"],["6"],["7"],["8"],["9"],["10"]], selected: cart_item.amount) %>
+              <%= f.submit "変更", class: "btn btn-sm btn-success ml-2" %>
             </div>
-            <span class="ml-2">
-              <%= cart_item.item.name %>
-            </span>
-          </td>
-          <td><%= cart_item.item.price.to_s(:delimited) %>円</td>
-          <td>
-            <%= form_with model:cart_item, url:cart_item_path(cart_item.id), local:true do|f| %>
-              <div class="d-flex justify-content-center align-items-center" >
-                <%= f.select :amount, options_for_select([["1"],["2"],["3"],["4"],["5"],["6"],["7"],["8"],["9"],["10"]],selected: cart_item.amount) %>
-                <%= f.submit "変更", class: "btn btn-sm btn-success ml-2" %>
-              </div>
-            <% end %>
-          </td>
-          <td><%= (cart_item.item.price*cart_item.amount).to_s(:delimited) %>円</td>
-          <td><%= link_to "削除する", cart_item_path(cart_item.id), method: :delete , "data-confirm" => "商品を削除しますか？" , class: "btn btn-sm btn-danger" %></td>
-        </tr>
+          <% end %>
+        </td>
+        <td><%= (cart_item.item.with_tax_price * cart_item.amount).to_s(:delimited) %>円(税込)</td>
+        <td><%= link_to "削除する", cart_item_path(cart_item.id), method: :delete, data: { confirm: "商品を削除しますか？" }, class: "btn btn-sm btn-danger" %></td>
+      </tr>
       <% end %>
     </tbody>
   </table>
@@ -58,20 +55,23 @@
   <div class="ml-auto">
     <table class="table mb-0">
       <tbody>
-        <td class="border border-dark bg-light">合計金額</td>
-        <td class="border border-dark"><strong>￥<%= @total.round.to_s(:delimited)%></strong></td>
+        <tr>
+          <td class="border border-dark bg-light">合計金額</td>
+          <td class="border border-dark"><strong>￥<%= @total_with_tax.round.to_s(:delimited) %></strong></td>
+        </tr>
       </tbody>
     </table>
   </div>
 </div>
 
 <% if @cart_items.empty? %>
-<div class="mt-5 d-flex justify-content-center">
-  <%= link_to "情報入力にすすむ", "#", class: "btn btn-sm btn-success" %>
-</div>
+  <div class="mt-5 d-flex justify-content-center">
+    <%= link_to "情報入力にすすむ", "#", class: "btn btn-sm btn-success" %>
+  </div>
 <% else %>
-<div class="mt-5 d-flex justify-content-center">
-  <%= link_to "情報入力にすすむ", new_order_path, class: "btn btn-sm btn-primary" %>
-</div>
+  <div class="mt-5 d-flex justify-content-center">
+    <%= link_to "情報入力にすすむ", new_order_path, class: "btn btn-sm btn-primary" %>
+  </div>
 <% end %>
+
 <p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>
