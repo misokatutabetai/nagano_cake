@@ -14,4 +14,8 @@ class Order < ApplicationRecord
     end
     return @subtotal
   end
+
+  def postal_display
+    '〒' + postal_code.slice(0..2) + '-' + postal_code.slice(3..6)
+  end
 end

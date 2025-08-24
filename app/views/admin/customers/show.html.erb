@@ -1,5 +1,3 @@
-<h1>admin/homes#<%= action_name %></h1>
-
 <div class="d-flex align-items-center p-3">
   <span class="page-title"><%= @customer.last_name %> <%= @customer.first_name %>さんの会員詳細</span>
 </div>
@@ -21,7 +19,7 @@
       </tr>
       <tr>
         <td>郵便番号</td>
-        <td><%= @customer.postal_code %></td>
+        <td><%= @customer.postal_display %></td>
       </tr>
       <tr>
         <td>住所</td>
@@ -47,5 +45,3 @@
 
   </div>
 </div>
-
-<p>Find me in app/views/admin/homes/<%= action_name %>.html.erb</p>

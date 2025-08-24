@@ -1,5 +1,3 @@
-<h1>public/homes#<%= action_name %></h1>
-
 <div class="d-flex align-items-center p-3">
   <span class="page-title">注文情報入力</span>
 </div>
@@ -23,7 +21,7 @@
         <%= f.radio_button :select_address, :my_address, checked: true %>
         <%= f.label :select_address, "ご自身の住所", value: :my_address %>
         <div class="col mt-1">
-          <div>〒<%= @order.customer.postal_code.slice(0..2) %>-<%= @order.customer.postal_code.slice(3..6) %></div>
+          <div><%= @order.customer.postal_display %></div>
           <div><%= @order.customer.address %></div>
           <div><%= @order.customer.last_name %> <%= @order.customer.first_name %></div>
         </div>
@@ -66,5 +64,3 @@
     </div>
   <% end %>
 </div>
-
-<p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>

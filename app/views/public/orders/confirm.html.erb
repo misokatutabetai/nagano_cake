@@ -1,5 +1,3 @@
-<h1>public/homes#<%= action_name %></h1>
-
 <div class="d-flex align-items-center p-3">
   <span class="page-title">注文情報確認</span>
 </div>
@@ -55,6 +53,7 @@
 <div class="d-flex align-items-center mt-2">
   <div class="col-2"><strong>お届け先</strong></div>
   <div>
+    <div><%= @order.postal_display %></div>
     <div><%= @order.address %></div>
     <div><%= @order.name %></div>
   </div>
@@ -72,5 +71,3 @@
   <%= f.submit "注文を確定する", class: "btn btn-sm btn-success" %>
   <% end %>
 </div>
-
-<p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>
