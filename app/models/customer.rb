@@ -15,4 +15,8 @@ class Customer < ApplicationRecord
   validates :address, presence: true
   validates :telephone_number, presence: true
   validates :email, presence: true, uniqueness: true
+
+  def postal_display
+    '〒' + postal_code.slice(0..2) + '-' + postal_code.slice(3..6)
+  end
 end

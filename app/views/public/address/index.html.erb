@@ -1,5 +1,3 @@
-<h1>public/homes#<%= action_name %></h1>
-
 <div class="d-flex align-items-center p-3">
   <span class="page-title">配送先登録/一覧</span>
 </div>
@@ -21,7 +19,7 @@
     <tbody>
       <% @addresses.each do |address| %>
         <tr>
-          <td><%= address.postal_code %></td>
+          <td><%= address.postal_display %></td>
           <td><%= address.address %></td>
           <td><%= address.name %></td>
           <td>
@@ -33,5 +31,3 @@
     </tbody>
   </table>
 </div>
-
-<p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>

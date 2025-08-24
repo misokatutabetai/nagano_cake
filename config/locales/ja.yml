@@ -202,6 +202,7 @@ ja:
       save: 登録に失敗しました
       update: 更新に失敗しました
       destroy: 削除に失敗しました
+      address: 住所が正しく入力されていません
   notice:
     messages:
       save: 登録に成功しました

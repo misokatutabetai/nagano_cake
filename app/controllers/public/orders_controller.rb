@@ -1,4 +1,5 @@
 class Public::OrdersController < ApplicationController
+  before_action :authenticate_customer!
   def new
     @order = current_customer.orders.new
   end
@@ -16,11 +17,12 @@ class Public::OrdersController < ApplicationController
       @order.postal_code = address.postal_code
       @order.address = address.address
       @order.name = address.name
-    elsif params[:order][:select_address] == "new_address"
+    elsif params[:order][:select_address] == "new_address" && params[:order][:postal_code].present? && params[:order][:address].present? && params[:order][:name].present?
       @order.postal_code = params[:order][:postal_code]
       @order.address = params[:order][:address]
       @order.name = params[:order][:name]
     else
+      flash.now[:alert] = I18n.t("alert.messages.address")
       render :new
     end
 

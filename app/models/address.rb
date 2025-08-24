@@ -8,4 +8,8 @@ class Address < ApplicationRecord
   def address_display
     '〒' + postal_code + ' ' + address + ' ' + name
   end
+
+  def postal_display
+    '〒' + postal_code.slice(0..2) + '-' + postal_code.slice(3..6)
+  end
 end

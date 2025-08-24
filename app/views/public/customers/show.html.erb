@@ -1,5 +1,3 @@
-<h1>public/homes#<%= action_name %></h1>
-
 <div class="d-flex align-items-center p-3">
   <span class="page-title">マイページ</span>
 </div>
@@ -22,7 +20,7 @@
       </tr>
       <tr>
         <td>郵便番号</td>
-        <td><%= @customer.postal_code.slice(0..2) %>-<%= @customer.postal_code.slice(3..6) %></td>
+        <td><%= @customer.postal_display %></td>
       </tr>
       <tr>
         <td>住所</td>
@@ -49,5 +47,3 @@
   <div class="col-2"><strong>注文履歴</strong></div>
   <%= link_to "一覧を見る", orders_path, class: "btn btn-sm btn-primary" %>
 </div>
-
-<p>Find me in app/views/public/homes/<%= action_name %>.html.erb</p>
