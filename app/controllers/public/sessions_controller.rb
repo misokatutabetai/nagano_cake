@@ -30,13 +30,9 @@ class Public::SessionsController < Devise::SessionsController
 
   def is_active?
     customer = Customer.find_by(email: params[:customer][:email])
-    return true if !customer
-    if customer.valid_password?(params[:customer][:password])
-      if customer.is_active == false
-        redirect_to not_active_path
-      else
-        return
-      end
-    end
+    return if customer.nil?
+    return unless customer.valid_password?(params[:customer][:password])
+    return if customer.is_active
+    redirect_to not_active_path
   end
 end

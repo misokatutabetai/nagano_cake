@@ -2,7 +2,7 @@ class Public::CartItemsController < ApplicationController
   before_action :authenticate_customer!
   TAX_RATE = 0.1
   def index
-    @cart_items = current_customer.cart_items
+    @cart_items = current_customer.cart_items.page(params[:page]).per(5)
     @total = @cart_items.inject(0) { |sum, item| sum + item.sum_of_price }
     @total_with_tax = @total * (1 + TAX_RATE)
   end

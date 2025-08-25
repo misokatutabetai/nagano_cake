@@ -1,7 +1,7 @@
 class Public::AddressController < ApplicationController
   before_action :authenticate_customer!
   def index
-    @addresses = Address.where(customer_id: current_customer.id)
+    @addresses = Address.where(customer_id: current_customer.id).page(params[:page]).per(5)
     @address = Address.new
   end
 
