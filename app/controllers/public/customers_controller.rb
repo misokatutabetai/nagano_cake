@@ -1,5 +1,5 @@
 class Public::CustomersController < ApplicationController
-  before_action :authenticate_customer!
+  before_action :authenticate_customer!, except: [:not_active]
   def show
     @customer = Customer.find(current_customer.id)
   end

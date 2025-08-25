@@ -23,11 +23,14 @@
           </div>
         </div>
 
-        <div class="row">
-          <%= form_with class: "mt-2 ml-auto mr-2" do |f| %>
-            <%= f.text_field :word, placeholder: "キーワード検索" %>
+        <div class="row mt-2">
+          <% if customer_signed_in? %>
+            <span class="ml-auto">ようこそ、<%= current_customer.last_name %>さん！</span>
+          <% end %>          <%= form_with class: "ml-auto mr-2" do |f| %>
+            <%= f.search_field :word, placeholder: "キーワード検索" %>
             <%= f.submit "検索" %>
           <% end %>
+
         </div>
 
       </div>

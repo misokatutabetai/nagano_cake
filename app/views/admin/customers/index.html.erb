@@ -28,11 +28,7 @@
       <% end %>
     </tbody>
   </table>
+
+  <div class="mt-3 d-flex justify-content-center"><%= paginate @customers %></div>
 </div>
 
-<%
-=begin %>
-  <%# kaminariを用いてページャを実装する %>
-  <div class="mt-5 d-flex justify-content-center"><%= paginate post_images, theme: 'bootstrap-5' %></div>
-<%
-=end %>

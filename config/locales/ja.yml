@@ -227,4 +227,11 @@ ja:
   Address:
     postal_code: 郵便番号
     address: 住所
-    name: 宛名 
+    name: 宛名
+  views:
+    pagination:
+      first: "&laquo; 最初"
+      last: "最後 &raquo;"
+      previous: "&lsaquo; 前"
+      next: "次 &rsaquo;"
+      truncate: "..."
