@@ -7,10 +7,20 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="d-flex flex-column vh-100">
+    <%= render 'layouts/header' %>
+    <main class="mb-auto">
+      <div class="container p-5 px-sm-0">
+        <div class="col-md-10 mx-auto">
+          <%= render 'layouts/flash_message' %>
+          <%= yield %>
+        </div>
+      </div>
+    </main>
+    <%= render 'layouts/footer' %>
   </body>
 </html>

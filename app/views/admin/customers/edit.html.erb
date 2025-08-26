@@ -1,0 +1,7 @@
+<div class="d-flex align-items-center p-3">
+  <span class="page-title"><%= @customer.last_name %> <%= @customer.first_name %>さんの会員詳細編集</span>
+</div>
+
+<div class="col-md-12 mx-auto">
+  <%= render "admin/customers/form", customer: @customer %>
+</div>

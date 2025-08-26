@@ -1,0 +1,46 @@
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">商品詳細</span>
+</div>
+
+<div class="col-md-12 mx-auto">
+  <div class="row mx-0">
+
+    <div class="col-4 p-2 bg-light d-flex">
+      <div class="my-auto">
+        <%= image_tag @item.get_image, size: '230x200' %>
+      </div>
+    </div>
+
+    <div class="col-8 p-0">
+      <table class='table mb-0'>
+        <tbody>
+          <tr>
+            <td class="col-5">商品名</td>
+            <td class="col-7"><%= @item.name %></td>
+          </tr>
+          <tr>
+            <td>商品説明</td>
+            <td><%= @item.introduction %></td>
+          </tr>
+          <tr>
+            <td>ジャンル</td>
+            <td><%= @item.genre.name %></td>
+          </tr>
+          <tr>
+            <td>税込価格<br>(税抜価格)</td>
+            <td><%= @item.with_tax_price.to_s(:delimited) %>円（<%= @item.price.to_s(:delimited) %>円）</td>
+          </tr>
+          <tr>
+            <td>販売ステータス</td>
+            <td><%= render "admin/items/is_active", item: @item %></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="actions mt-4 d-flex justify-content-around">
+  <%= link_to "編集する", edit_admin_item_path(@item.id), class: 'btn btn-sm btn-success' %>
+  <%= link_to "削除する", admin_item_path(@item.id), method: :delete,data: { confirm: '本当に削除しますか？' }, class: "btn btn-sm btn-danger" %>
+</div>

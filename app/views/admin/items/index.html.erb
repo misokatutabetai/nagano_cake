@@ -1,0 +1,35 @@
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">商品名一覧</span>
+  <span class="ml-auto">
+    <%= link_to "商品の追加", new_admin_item_path, class: "btn btn-sm btn-success" %>
+  </span>
+</div>
+
+<div class="col">
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>商品ID</th>
+        <th>商品名</th>
+        <th>税抜価格</th>
+        <th>ジャンル</th>
+        <th>ステータス</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td><%= item.id %></td>
+          <td>
+            <%= link_to item.name, admin_item_path(item.id) %>
+          </td>
+          <td><%= item.price.to_s(:delimited) %></td>
+          <td><%= item.genre.name %></td>
+          <td><%= render "admin/items/is_active", item: item %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="mt-3 d-flex justify-content-center"><%= paginate @items %></div>
+</div>

@@ -1,0 +1,7 @@
+<% if object.errors.any? %>
+  <% object.errors[attribute].each do |message| %>
+    <div class="row col">
+      <div class="ml-auto col-8 small text-danger"><%= I18n.t("#{object.class.name}.#{attribute}") %><%= message %></div>
+    </div>
+  <% end %>
+<% end %>

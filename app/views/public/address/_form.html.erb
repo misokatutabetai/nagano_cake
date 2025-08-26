@@ -1,0 +1,29 @@
+<%= form_with model: address, url: url_path do |f| %>
+  <div class="field mt-1">
+    <%= f.label :postal_code, "郵便番号（ハイフンなし）" %>
+    <div class="col-7 px-0">
+      <%= f.text_field :postal_code, autocomplete: true, class: "col-5 px-1" %>
+    </div>
+  </div>
+  <%= render 'public/shared/error_message', object: f.object, attribute: :postal_code %>
+
+  <div class="field mt-2">
+    <%= f.label :address, "住所" %>
+    <div class="col-7 px-0">
+      <%= f.text_area :address, autocomplete: true, class: "col w-100 px-1" %>
+    </div>
+  </div>
+  <%= render 'public/shared/error_message', object: f.object, attribute: :address %>
+
+  <div class="field mt-2">
+    <%= f.label :name, "宛名" %>
+    <div class="col-7 px-0">
+      <%= f.text_field :name, autocomplete: true, class: "col-5 px-1" %>
+    </div>
+  </div>
+  <%= render 'public/shared/error_message', object: f.object, attribute: :name %>
+
+  <div class="mt-4 d-flex justify-content-center">
+    <%= f.submit class: "btn btn-sm btn-success" %>
+  </div>
+<% end %>

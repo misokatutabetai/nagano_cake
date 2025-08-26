@@ -1,0 +1,30 @@
+<div class="d-flex align-items-center p-3">
+  <span class="page-title">管理者ログイン</span>
+</div>
+
+<div class="col-md-8 mx-auto">
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="field mt-5">
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field mt-2">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="mt-1 d-flex justify-content-center">
+        <%= f.check_box :remember_me, class: "ml-auto" %>
+        <%= f.label :remember_me, class: "ml-1" %>
+      </div>
+    <% end %>
+
+    <div class="actions mt-3">
+      <%= f.submit "Log in", class: 'btn btn-sm btn-primary' %>
+    </div>
+  <% end %>
+</div>
+
+<%= render "admin/shared/links" %>
