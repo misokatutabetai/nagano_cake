@@ -220,7 +220,7 @@ ja:
   Item:
     name: 商品名
     introduction: 商品説明
-    genre_id: そのジャンル
+    genre_id: ジャンル
     price: 税抜き価格
   Genre:
     name: ジャンル名
