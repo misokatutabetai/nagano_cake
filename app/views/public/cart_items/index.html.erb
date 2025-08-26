@@ -39,7 +39,7 @@
             </div>
           <% end %>
         </td>
-        <td><%= (cart_item.item.with_tax_price * cart_item.amount).to_s(:delimited) %>円(税込)</td>
+        <td><%= cart_item.subtotal.to_s(:delimited) %>円(税込)</td>
         <td><%= link_to "削除する", cart_item_path(cart_item.id), method: :delete, data: { confirm: "商品を削除しますか？" }, class: "btn btn-sm btn-danger" %></td>
       </tr>
       <% end %>

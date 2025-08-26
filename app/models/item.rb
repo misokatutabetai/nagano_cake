@@ -5,10 +5,10 @@ class Item < ApplicationRecord
 
   has_one_attached :image
 
-  validates :genre_id, inclusion: { in: Genre.pluck(:id) }
-  validates :name, presence:true, uniqueness: true
-  validates :introduction, presence:true
-  validates :price, presence:true
+  validates :genre_id, presence: true
+  validates :name, presence: true, uniqueness: true
+  validates :introduction, presence: true
+  validates :price, presence: true
 
   scope :new_order, -> { order(created_at: :desc) }
 
