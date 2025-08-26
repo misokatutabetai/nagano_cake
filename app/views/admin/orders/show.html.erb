@@ -74,7 +74,6 @@
     </thead>
     <tbody>
       <% @order.order_details.each do |order_detail| %>
-        <%# レコードごとにリンクを付ける場合はJSを使う %>
         <tr>
           <td><%= order_detail.item.name %></td>
           <td class="text-right"><%= order_detail.item.with_tax_price.to_s(:delimited) %>円</td>
